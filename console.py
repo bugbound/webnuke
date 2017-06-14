@@ -77,8 +77,10 @@ class JavascriptInjector:
 class mainframe:
 	def __init__(self, logger, proxy_port):
 		self.debug = True
-		self.proxy_host = 'localhost'
-		self.proxy_port = proxy_port
+		#self.proxy_host = 'localhost'
+		#self.proxy_port = proxy_portv
+		self.proxy_host = ''
+		self.proxy_port = 0
 		self.driver = 'notset'
 		self.current_url = "NONE"
 		self.warning = ''
@@ -208,12 +210,12 @@ logger.log('app started')
 try:
 	#webserver = webnuke_api_server(logger)
 	#webserver.start()
-	proxy_port = 8008
-	webnukeproxy = ProxySupport("bah1", proxy_port, logger)
+	currently_not_used_local_proxy_port = 8008
+	#webnukeproxy = ProxySupport("bah1", proxy_port, logger)
 	
 	
 		
-	mainwin = mainframe(logger, proxy_port)
+	mainwin = mainframe(logger, currently_not_used_local_proxy_port)
 	mainwin.run_main()
 except:
 	logger.log('app error')
