@@ -79,21 +79,6 @@ class JavascriptScreen:
 		
 		while showscreen:
 			self.screen = self.curses_util.get_screen()
-			# pic from http://ascii.co.uk/art/rockets
-			self.screen.addstr(6, 32, "                           *    ", curses.color_pair(2))
-			self.screen.addstr(7, 32, "               +               ", curses.color_pair(2))
-			self.screen.addstr(8, 32, "                  *          +   '--'  *", curses.color_pair(2))
-			self.screen.addstr(9, 32, "                      +   /\\", curses.color_pair(2))
-			self.screen.addstr(10,32, "         +              .'  '.   *", curses.color_pair(2))
-			self.screen.addstr(11,32, "                *      /======\\      +", curses.color_pair(2))
-			self.screen.addstr(12,32, "                      ;:.      ;", curses.color_pair(2))
-			self.screen.addstr(13,32, "                      |:.      |", curses.color_pair(2))
-			self.screen.addstr(14,32, "                      |:.      |", curses.color_pair(2))
-			self.screen.addstr(15,32, "            +         |:.      |          *", curses.color_pair(2))
-			self.screen.addstr(16,32, "                      ;:.      ;", curses.color_pair(2))
-			self.screen.addstr(17,32, "                    .' \\:.    / `.", curses.color_pair(2))
-			self.screen.addstr(18,32, "                   / .-'':._.'`-. \\", curses.color_pair(2))
-			self.screen.addstr(19,32, "                   |/    /||\\    \\|", curses.color_pair(2))
 			self.screen.addstr(2, 2, "Javascript Tools")
 			self.screen.addstr(4, 5, "4) Find URLS within Javascript Global Properties")
 			self.screen.addstr(5, 5, "5) Show Javascript functions of Document")

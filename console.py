@@ -110,6 +110,21 @@ class mainframe:
 			 self.screen.addstr(12, 4, "angularjs    - AngularJS tools menu...")
 			 self.screen.addstr(14, 4, "spider       - Spider tools menu...")
 			 self.screen.addstr(18, 4, "quit         - Exit webnuke")
+			 # pic from http://ascii.co.uk/art/rockets
+			 self.screen.addstr(8, 45, "                 *    ", curses.color_pair(2))
+			 self.screen.addstr(9, 45, "     +               ", curses.color_pair(2))
+			 self.screen.addstr(10,45, "        *          +   '--'  *", curses.color_pair(2))
+			 self.screen.addstr(11,45, "            +   /\\", curses.color_pair(2))
+			 self.screen.addstr(12,45, "+             .'  '.   *", curses.color_pair(2))
+			 self.screen.addstr(13,45, "      *      /======\\      +", curses.color_pair(2))
+			 self.screen.addstr(14,45, "            ;:.      ;", curses.color_pair(2))
+			 self.screen.addstr(15,45, "            |:.      |", curses.color_pair(2))
+			 self.screen.addstr(16,45, "            |:.      |", curses.color_pair(2))
+			 self.screen.addstr(17,45, "  +         |:.      |          *", curses.color_pair(2))
+			 self.screen.addstr(18,45, "            ;:.      ;", curses.color_pair(2))
+			 self.screen.addstr(19,45, "          .' \\:.    / `.", curses.color_pair(2))
+			 self.screen.addstr(20,45, "         / .-'':._.'`-. \\", curses.color_pair(2))
+			 self.screen.addstr(21,45, "         |/    /||\\    \\|", curses.color_pair(2))
 			 
 			 if self.warning is not '':
 				 self.screen.addstr(22, 2, self.warning, curses.color_pair(1))
