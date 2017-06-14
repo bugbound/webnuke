@@ -24,7 +24,6 @@ from libs.spider.spidercommands import *
 
 from libs.logger import *
 
-from libs.CustomApiServer import *
 
 from webnukeproxy import *
 
