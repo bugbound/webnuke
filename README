@@ -1,0 +1,14 @@
+To run:
+
+cd apiserver
+python webnukeapiserver.py
+cd ..
+python console.py
+
+
+
+
+Notes:
+
+Currently the webnukeapiserver needs to be run in its own main thread as is not part of the console application.
+
