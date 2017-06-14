@@ -60,10 +60,11 @@ class AngularCommands:
 				for result_line in result:
 					print result_line
 		except WebDriverException:
-			print "ERROR with webdriver"
-			print javascript
-			print ''
-			raise
+			#print "ERROR with webdriver"
+			#print javascript
+			#print ''
+			#raise
+			pass
 		except:
 			raise
 			

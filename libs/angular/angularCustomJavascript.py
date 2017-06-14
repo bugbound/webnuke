@@ -5,11 +5,19 @@ class AngularCustomJavascript:
 	def getJavascriptToInjectAsString(self):
 		javascript = """window.console = {log: function(data){this.output.push(data);}, warn: function(data){this.output.push("WARN: "+data);}, error: function(data){this.output.push("ERROR: "+data);}, output: [], flushOutput: function(){var rtndata = this.output; this.output=[]; return rtndata;}};			
 						
-						window.wn_getAngularAppName = function(){return angular.element(document.body).injector().get('$rootElement').attr('ng-app');};
+						window.wn_getAngularAppName = function(){
+							if(typeof angular !== 'undefined'){
+								return angular.element(document.body).injector().get('$rootElement').attr('ng-app');
+							}
+							return "No AngularJS app found."
+							
+						};
 						
 						window.wn_getAngularDeps = function(namespace){
 							var deps = [];
-							angular.forEach(angular.module(namespace).requires, function(m){deps.push(m);});
+							if(typeof angular !== 'undefined'){
+								angular.forEach(angular.module(namespace).requires, function(m){deps.push(m);});
+							}
 							return deps;
 						};
 						
@@ -19,27 +27,28 @@ class AngularCustomJavascript:
 							var main_deps = wn_getAngularDeps(main_app_name);
 							deps_list.push({'namespace': main_app_name, 'deps': main_deps});
 							
-							angular.forEach(main_deps, function(m){
-								var deps = wn_getAngularDeps(m);
-								deps_list.push({'namespace': m, 'deps': deps});
-							});
-							
-							//now get remaining namespaces....
-							additional_namespaces=[]
-							angular.forEach(deps_list, function(m){
-								var deps = m['deps'];
-								angular.forEach(deps, function(depname){
-									if(wn_contains_namespace(depname, deps_list)==false){
-										additional_namespaces.push(depname);
-									}
+							if(typeof angular !== 'undefined'){
+								angular.forEach(main_deps, function(m){
+									var deps = wn_getAngularDeps(m);
+									deps_list.push({'namespace': m, 'deps': deps});
 								});
-							});
-							
-							angular.forEach(additional_namespaces, function(m){
-								var deps = wn_getAngularDeps(m);
-								deps_list.push({'namespace': m, 'deps': deps});
-							});
-							
+								
+								//now get remaining namespaces....
+								additional_namespaces=[]
+								angular.forEach(deps_list, function(m){
+									var deps = m['deps'];
+									angular.forEach(deps, function(depname){
+										if(wn_contains_namespace(depname, deps_list)==false){
+											additional_namespaces.push(depname);
+										}
+									});
+								});
+								
+								angular.forEach(additional_namespaces, function(m){
+									var deps = wn_getAngularDeps(m);
+									deps_list.push({'namespace': m, 'deps': deps});
+								});
+							}
 							return deps_list;
 						};
 						
@@ -152,19 +161,21 @@ class AngularCustomJavascript:
 							var resource_classes = [];
 							var deps = wn_getAllAngularDeps();
 							
-							angular.forEach(deps, function(m){
-								var contains_ngresource = false;
-								angular.forEach(m['deps'], function(mm){
-									if(mm == 'ngResource'){
-										var namespace = m['namespace']
-										
-										var angular_classes = wn_getAngularClasses(namespace);
-										angular.forEach(angular_classes, function(angular_classname){
-											resource_classes.push(angular_classname['name']);
-										});
-									}
+							if(typeof angular !== 'undefined'){
+								angular.forEach(deps, function(m){
+									var contains_ngresource = false;
+									angular.forEach(m['deps'], function(mm){
+										if(mm == 'ngResource'){
+											var namespace = m['namespace']
+											
+											var angular_classes = wn_getAngularClasses(namespace);
+											angular.forEach(angular_classes, function(angular_classname){
+												resource_classes.push(angular_classname['name']);
+											});
+										}
+									});
 								});
-							});
+							}
 							return resource_classes;
 						};
 						
@@ -172,34 +183,42 @@ class AngularCustomJavascript:
 							console.log('webnuke: AngularJS Testing ngResource Classes');
 							console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-');
 							var angular_classes = wn_getNgResourceClasses();
-							
-							angular.forEach(angular_classes, function(m){
-								try {
-									var classtotest = m;
-									var res = angular.element(document.body).injector().get(classtotest);
-									if(typeof res['get'] == 'function'){
-										res.get({}, function(data){
-											console.log("Received data for "+classtotest);
-											//console.log(data);
-										}, function(data){
-											console.log("error receiving data for "+classtotest);
-										});
+
+							if(typeof angular !== 'undefined'){
+								angular.forEach(angular_classes, function(m){
+									try {
+										var classtotest = m;
+										var res = angular.element(document.body).injector().get(classtotest);
+										if(typeof res['get'] == 'function'){
+											res.get({}, function(data){
+												console.log("Received data for "+classtotest);
+												//console.log(data);
+											}, function(data){
+												console.log("error receiving data for "+classtotest);
+											});
+										}
 									}
-								}
-								catch(err) {
-									console.log("Error with '"+m+"' class - "+err.message);
-								}
-							});
-							console.log('');
+									catch(err) {
+										console.log("Error with '"+m+"' class - "+err.message);
+									}
+								});
+								console.log('');
+							}
 						};
 						
 						window.wn_showAngularRoutes = function(){
 							console.log('webnuke: AngularJS URL Routes');
 							console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-');
-							var routes = angular.element(document.body).injector().get('$state').get();
-							routes.forEach(function(value){
-								console.log('\tRoute: '+value.url+'\tController:'+value.controller);
-							});
+							var mminjector = angular.element(document.body).injector()
+							if(typeof mminjector !== 'undefined'){
+								var mmstate = mminjector.get('$state')
+								if(typeof mmstate !== 'undefined'){
+									var routes = mmstate.get();
+									routes.forEach(function(value){
+										console.log('\tRoute: '+value.url+'\tController:'+value.controller);
+									});
+								}
+							}
 						};
 						
 						"""

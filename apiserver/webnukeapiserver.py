@@ -50,7 +50,7 @@ class WebAPIServer:
 			db.create_all()
 		try:
 			
-			self.logger.log("web api starting...")
+			#self.logger.log("web api starting...")
 			apimanager = APIManager(app, flask_sqlalchemy_db=db)
 			apimanager.create_api(TestItem,
 				methods=['GET'],

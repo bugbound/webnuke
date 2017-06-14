@@ -235,8 +235,8 @@ try:
 except:
 	logger.log('app error')
 	raise
-finally:
-	webnukeproxy.stop()
+#finally:
+	#webnukeproxy.stop()
 	
 
 logger.log('app ended')

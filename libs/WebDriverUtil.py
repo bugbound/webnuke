@@ -45,7 +45,7 @@ class WebDriverUtil:
 		webnuke_config_web_api_url = 'http://localhost:'+str(webnuke_config_web_api_port)
 		#self.web_api_server = WebAPIServer(webnuke_config_web_api_port, logger)
 		#self.web_api_server.startServer()
-		logger.log('web api started')
+		
 		
 		#self.proxy_support = ProxySupport('webnuke-proxy', webnuke_config_proxy_port, webnuke_config_web_api_url)
 		profile = self.getWebDriverProfile()
