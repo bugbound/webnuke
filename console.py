@@ -4,8 +4,8 @@
 
 import curses
 import time
-from libs.WebDriverUtil import *
-from libs.gui.cursesutil import *
+from libs.utils.WebDriverUtil import *
+from libs.utils.cursesutil import *
 from libs.javascript.javascriptmenu import *
 from libs.angular.angularmenu import *
 from libs.htmltools.htmlmenu import *
@@ -13,9 +13,9 @@ from libs.quickdetect.QuickDetect import *
 from libs.jsconsole.JSConsole import *
 from libs.spider.spiderscreen import *
 from libs.spider.spidercommands import *
-from libs.logger import *
+from libs.utils.logger import *
 from webnukeproxy import *
-from libs.javascriptinjector import *
+from libs.utils.javascriptinjector import *
 
 class mainframe:
 	def __init__(self, logger, proxy_port):
