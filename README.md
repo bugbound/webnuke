@@ -1,4 +1,4 @@
-Webnuke is a console based python application useful when pentesting a web application, espically AngularJS applications.
+Webnuke is a console based python application useful when pentesting a web application, especially AngularJS applications.
 
 To run:
 
