@@ -1,8 +1,8 @@
 import curses
-from libs.AngularUtil import *
-from libs.WordPressUtil import *
-from libs.DrupalUtil import *
-from libs.JQueryUtil import *
+from libs.quickdetect.AngularUtil import *
+from libs.quickdetect.WordPressUtil import *
+from libs.quickdetect.DrupalUtil import *
+from libs.quickdetect.JQueryUtil import *
 
 
 class QuickDetect:

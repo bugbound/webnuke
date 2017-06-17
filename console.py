@@ -4,17 +4,13 @@
 
 import curses
 import time
-from libs.AngularUtil import *
-from libs.WordPressUtil import *
-from libs.DrupalUtil import *
-from libs.JQueryUtil import *
 from libs.WebDriverUtil import *
 from libs.gui.cursesutil import *
-from libs.gui.javascriptmenu import *
-from libs.gui.angularmenu import *
-from libs.gui.htmlmenu import *
-from libs.QuickDetect import *
-from libs.JSConsole import *
+from libs.javascript.javascriptmenu import *
+from libs.angular.angularmenu import *
+from libs.htmltools.htmlmenu import *
+from libs.quickdetect.QuickDetect import *
+from libs.jsconsole.JSConsole import *
 from libs.spider.spiderscreen import *
 from libs.spider.spidercommands import *
 from libs.logger import *
