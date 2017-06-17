@@ -3,76 +3,23 @@
 # add owa to quickdetect - look for function IsOwaPremiumBrowser
 
 import curses
+import time
 from libs.AngularUtil import *
 from libs.WordPressUtil import *
 from libs.DrupalUtil import *
 from libs.JQueryUtil import *
 from libs.WebDriverUtil import *
 from libs.gui.cursesutil import *
-
-import time
-
 from libs.gui.javascriptmenu import *
 from libs.gui.angularmenu import *
-
+from libs.gui.htmlmenu import *
 from libs.QuickDetect import *
 from libs.JSConsole import *
-
 from libs.spider.spiderscreen import *
 from libs.spider.spidercommands import *
-
-
 from libs.logger import *
-
-
 from webnukeproxy import *
-
-
-javascript_to_inject = """
-	theParent = document.getElementsByTagName("body")[0];
-	theKid = document.createElement("div");
-	theKid.innerHTML = '<h1>WebNuke V0.1 BETA</h1><p>heh</p>';
-	theParent.insertBefore(theKid, theParent.firstChild)
-	
-"""
-
-
-class webnuke_api_server:
-	def __init__(self, logger):
-		self.version = 0.1
-		self.logger = logger
-		
-	
-	def start(self):
-		self.apiserver = WebAPIServer(8002, logger)
-		self.apiserver.startServer()
-		self.logger.log("Web server started")
-
-class JavascriptInjector:
-	def __init__(self):
-		self.version = 0.1
-		self.jsfunctions=[]
-		self.javascript_block=""	
-		self.help_block=[]
-		
-	def inject_js(self, javascript):
-		self.javascript_block+=javascript
-		
-	def add_help_topic(self, jsfunction, description):
-		self.jsfunctions.append(jsfunction)
-		self.help_block.append({'function': jsfunction, 'description': description})
-		
-	def get_js_block(self):
-		wnhelp_block = """window.wn_help = function(){
-	console.log('webnuke: HELP!!');
-	console.log('-=-=-=-=-=-=-=-');"""
-		for x in self.help_block:
-			wnhelp_block+="console.log('"+x['function']+" - "+x['description']+"');"
-		wnhelp_block+='};'
-	
-	
-		return self.javascript_block+wnhelp_block
-
+from libs.javascriptinjector import *
 
 class mainframe:
 	def __init__(self, logger, proxy_port):
@@ -88,7 +35,7 @@ class mainframe:
 		self.logger = logger
 		self.jsinjector = JavascriptInjector()
 		# load plugin javascript
-		self.plugins = [JSConsoleScript(self.jsinjector), JavascriptScript(self.jsinjector)]
+		self.plugins = [JSConsoleScript(self.jsinjector), JavascriptScript(self.jsinjector), HTMLToolsScript(self.jsinjector)]
 		
 	def run_main(self):
 		self.logger.log("run_main")
@@ -96,19 +43,20 @@ class mainframe:
 		mystr_elements = mystr.split()
 		firstelement=mystr_elements[0]
 
-		while firstelement != 'quit':
+		while firstelement != 'quit' and firstelement != 'q':
 			 self.screen = self.curses_util.get_screen()
 
-			 self.screen.addstr(2, 2,  "Please enter a command...")
+			 self.screen.addstr(2, 2,  "Please enter a command")
 			 self.screen.addstr(4, 4,  "goto <url>   - opens url")
 			 self.screen.addstr(5, 4,  "quickdetect  - detect technologies in use on url...")
 			 self.screen.addstr(6, 4,  "jsconsole    - opens a console bound to a browser javascript console...")
-			 self.screen.addstr(7, 4,  "debug        - toggle debug on/off")
-			 self.screen.addstr(8, 4,  "proxy        - set proxy settings...")
-			 self.screen.addstr(9, 4,  "!sh          - escape to unix land...")
-			 self.screen.addstr(11, 4, "javascript   - Javascript tools menu...")
-			 self.screen.addstr(12, 4, "angularjs    - AngularJS tools menu...")
-			 self.screen.addstr(14, 4, "spider       - Spider tools menu...")
+			 self.screen.addstr(7 , 4, "html         - HTML tools menu...")
+			 self.screen.addstr(8 , 4, "javascript   - Javascript tools menu...")
+			 self.screen.addstr(9 , 4, "angularjs    - AngularJS tools menu...")
+			 self.screen.addstr(10, 4, "spider       - Spider tools menu...")
+			 self.screen.addstr(14, 4, "debug        - toggle debug on/off")
+			 self.screen.addstr(15, 4, "proxy        - set proxy settings...")
+			 self.screen.addstr(16, 4, "!sh          - escape to unix land...")
 			 self.screen.addstr(18, 4, "quit         - Exit webnuke")
 			 # pic from http://ascii.co.uk/art/rockets
 			 self.screen.addstr(8, 45, "                 *    ", curses.color_pair(2))
@@ -144,9 +92,9 @@ class mainframe:
 
 			 if firstelement == 'd':
 				 self.debug = True
-				 self.current_url = "http://bugbound.co.uk"
+				 self.current_url = "https://www.wufoo.com/html5/types/11-hidden.html"
 				 self.open_url(self.current_url)
-				 firstelement="bah"
+				 firstelement="html"
 				 
 			 
 			 if firstelement == 'goto':
@@ -194,6 +142,9 @@ class mainframe:
 				 
 			 #if firstelement == 'javascript':
 				# ResendScreen(self.screen, self.curses_util)
+			 
+			 if firstelement == 'html':
+				 HTMLScreen(self.screen, self.driver, self.curses_util, self.jsinjector).show()
 
 
 		self.curses_util.close_screen()
@@ -209,14 +160,9 @@ class mainframe:
 		if self.driver == 'notset':
 			self.driver = self.create_browser_instance()
 		self.current_url = url
-		#self.curses_util.set_footer_url(self.current_url)
 		
 		self.driver.get(url)
 		self.current_url = self.driver.current_url
-		#self.curses_util.set_footer_url(self.current_url)
-		
-		#time.sleep(30)
-		#self.driver.execute_script(javascript_to_inject)
 		
 
 logger = FileLogger()

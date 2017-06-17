@@ -23,13 +23,13 @@ class CursesUtil:
 	def show_header(self):
 		self.screen.clear()
 		self.screen.border(0)
-		self.screen.addstr(0, 28, " WEBNUKE V1.2 - BETA ", curses.color_pair(2))
+		self.screen.addstr(0, 28, " WEBNUKE V1.3 - BETA ", curses.color_pair(2))
 		
 		myurl = self.current_url
 		if len(self.current_url) > 55:
 			myurl = "%s..."%self.current_url[0:55]
 		
-		self.screen.addstr(23, 1, " URL: %s "%myurl, curses.color_pair(2))
+		#self.screen.addstr(23, 1, " URL: %s "%myurl, curses.color_pair(2))
 		
 	def set_footer_url(self, newurl):
 		self.current_url = newurl

@@ -1,9 +1,12 @@
 from selenium.common.exceptions import WebDriverException
+from libs.jsconsolescript import *
 
 class JSConsoleScript:
 	def __init__(self, jsinjector):
 		self.version=0.1
 		self.jsinjector = jsinjector
+		self.jsinjector.add_help_topic('wn_help()', 'Shows WebNuke Help')
+		self.jsinjector.add_help_topic('wn_findStringsWithUrls()', 'Try and locate urls within Javascript strings')
 		self.jsfunctions = """		
 						
 window.wn_findStringsWithUrls = function(){
@@ -24,8 +27,7 @@ window.wn_findStringsWithUrls = function(){
 };		
 		"""
 		self.jsinjector.inject_js(self.jsfunctions)
-		self.jsinjector.add_help_topic('wn_help()', 'Shows WebNuke Help')
-		self.jsinjector.add_help_topic('wn_findStringsWithUrls()', 'Try and locate urls within Javascript strings')
+		
 		
 
 		
@@ -38,7 +40,6 @@ class JSConsole:
 
 		
 	def run(self):
-		self.install_custom_javascript_functions()
 		print "JSCONSOLE (type quit to exit) - dont forget to drop the bomb @@@"
 		print ''
 		self.execute_javascript('wn_help()')
@@ -69,6 +70,7 @@ class JSConsole:
 			raise
 
 	def execute_javascript(self, javascript):
+		self.install_custom_javascript_functions()
 		try:
 			amended_javascript="""window.webnuke = function(){"""+javascript+""";}; webnuke(); return window.console.flushOutput() """
 			result = self.driver.execute_script(amended_javascript)

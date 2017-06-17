@@ -1,17 +1,18 @@
 import curses
 from selenium.common.exceptions import WebDriverException
+from libs.gui.htmlcommands import *
+from libs.gui.htmltoolsscript import *
 
-from libs.gui.javascriptscript import *
-from libs.gui.javascriptcommands import *
-
-class JavascriptScreen:
+class HTMLScreen:
 	def __init__(self, screen, webdriver, curses_util, jsinjector):
 		self.version=0.1
 		self.screen = screen
 		self.driver = webdriver
+		
 		self.curses_util = curses_util
 		self.jsinjector = jsinjector
-		self.commands = JavascriptCommands(self.driver, self.jsinjector)
+		
+		self.commands = HTMLCommands(self.driver, self.jsinjector)
 		
 		
 	def show(self):
@@ -19,10 +20,9 @@ class JavascriptScreen:
 		
 		while showscreen:
 			self.screen = self.curses_util.get_screen()
-			self.screen.addstr(2, 2, "Javascript Tools")
-			self.screen.addstr(4, 5, "4) Find URLS within Javascript Global Properties")
-			self.screen.addstr(5, 5, "5) Show Javascript functions of Document")
-			#self.screen.addstr(6, 5, "6) Run all js functions without args")
+			self.screen.addstr(2, 2, "HTML Tools")
+			self.screen.addstr(4, 5, "4) Show hidden form elements") # good demo url for this.... https://www.wufoo.com/html5/types/11-hidden.html
+			self.screen.addstr(5, 5, "5) Turn password fields into text") 
 
 
 			
@@ -35,11 +35,14 @@ class JavascriptScreen:
 				
 			if c == ord('4'):
 				self.curses_util.close_screen()
-				self.commands.search_for_urls()
+				self.commands.show_hidden_form_elements()
 				
 			if c == ord('5'):
 				self.curses_util.close_screen()
-				self.commands.search_for_document_javascript_methods()
-				
+				self.commands.show_password_fields_as_text()
+								
 		return
 		
+	
+		
+	
