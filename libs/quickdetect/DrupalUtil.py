@@ -1,4 +1,3 @@
-import IPython
 import time		
 
 class DrupalUtil:
