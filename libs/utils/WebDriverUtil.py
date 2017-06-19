@@ -35,9 +35,9 @@ class WebDriverUtil:
 		profile.set_preference("network.proxy.ssl_port", proxy_port)
 		profile.update_preferences()
 		
-		self.driver = webdriver.Firefox(firefox_profile=profile)
-		self.wait = ui.WebDriverWait(self.driver, 10) # timeout after 10 seconds
-		return self.driver
+		newdriver = webdriver.Firefox(firefox_profile=profile)
+		self.wait = ui.WebDriverWait(newdriver, 10) # timeout after 10 seconds
+		return newdriver
 		
 	def getDriver(self, logger):		
 		webnuke_config_proxy_port = 33333
@@ -50,14 +50,10 @@ class WebDriverUtil:
 		#self.proxy_support = ProxySupport('webnuke-proxy', webnuke_config_proxy_port, webnuke_config_web_api_url)
 		profile = self.getWebDriverProfile()
 		profile.update_preferences()
-		self.driver = webdriver.Firefox(firefox_profile=profile)
+		newdriver = webdriver.Firefox(firefox_profile=profile)
 		#self.driver = self.getDriverWithProxySupport('localhost', webnuke_config_proxy_port)
-		return self.driver
+		return newdriver
 		
-	def close_driver(self):
-		if self.debug == False:
-			self.driver.quit()
-			self.display.stop()
 
 
 

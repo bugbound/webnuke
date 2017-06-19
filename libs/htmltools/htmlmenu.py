@@ -23,6 +23,7 @@ class HTMLScreen:
 			self.screen.addstr(2, 2, "HTML Tools")
 			self.screen.addstr(4, 5, "4) Show hidden form elements") # good demo url for this.... https://www.wufoo.com/html5/types/11-hidden.html
 			self.screen.addstr(5, 5, "5) Turn password fields into text") 
+			self.screen.addstr(6, 5, "6) Turn css visibility on for all HTML elements") 
 
 
 			
@@ -40,6 +41,10 @@ class HTMLScreen:
 			if c == ord('5'):
 				self.curses_util.close_screen()
 				self.commands.show_password_fields_as_text()
+				
+			if c == ord('6'):
+				self.curses_util.close_screen()
+				self.commands.see_all_html_elements()
 								
 		return
 		

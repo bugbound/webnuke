@@ -3,7 +3,10 @@ class HTMLToolsScript:
 		self.version=0.1
 		self.jsinjector = jsinjector
 		self.jsinjector.add_help_topic('wn_showHiddenFormElements()',   'Show hidden form elements in the browser')
-		self.jsinjector.add_help_topic('wn_showPasswordFieldsAsText()', 'Show password fields as text in the browser')		
+		self.jsinjector.add_help_topic('wn_showPasswordFieldsAsText()', 'Show password fields as text in the browser')	
+		self.jsinjector.add_help_topic('wn_showAllHTMLElements()', 'Set CSS visibility to visible on all HTML elements in the browser')	
+		
+			
 		self.jsfunctions = """		
 window.wn_showHiddenFormElements = function(){
 	console.log('webnuke: Show hidden form elements');
@@ -54,7 +57,17 @@ window.wn_showPasswordFieldsAsText = function(){
 	}
 };
 	
+window.wn_showAllHTMLElements = function(){
+	console.log('webnuke: Show All HTML Elements');
+	console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-');
 
+	var all = document.getElementsByTagName('*');
+
+	for (var i=0, max=all.length; i < max; i++) {
+		 var element = all[i];
+		 element.style.visibility = 'visible';
+	}
+};
 		"""
 		
 		self.jsinjector.inject_js(self.jsfunctions)

@@ -1,3 +1,5 @@
+from selenium.common.exceptions import WebDriverException
+
 class HTMLCommands:
 	def __init__(self, webdriver, jsinjector):
 		self.version = 0.1
@@ -16,7 +18,12 @@ class HTMLCommands:
 		print ''
 		raw_input("Press ENTER to return to menu.")		
 
-	
+	def see_all_html_elements(self):
+		self.execute_javascript('wn_showAllHTMLElements()')
+		print ''
+		print ''
+		raw_input("Press ENTER to return to menu.")		
+		
 	def execute_javascript(self, javascript):
 		try:
 			self.install_custom_javascript_functions()
