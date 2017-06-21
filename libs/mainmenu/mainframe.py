@@ -9,16 +9,13 @@ from libs.quickdetect.QuickDetect import *
 from libs.jsconsole.JSConsole import *
 from libs.spider.spiderscreen import *
 from libs.spider.spidercommands import *
-from webnukeproxy import *
 from libs.utils.javascriptinjector import *
 from libs.mainmenu.mainmenuscreen import *
 from libs.followme.followmemenu import *
 
 class mainframe:
-	def __init__(self, logger, proxy_port):
+	def __init__(self, logger):
 		self.debug = True
-		#self.proxy_host = 'localhost'
-		#self.proxy_port = proxy_portv
 		self.proxy_host = ''
 		self.proxy_port = 0
 		self.driver = 'notset'
