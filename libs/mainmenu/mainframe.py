@@ -12,6 +12,7 @@ from libs.spider.spidercommands import *
 from libs.utils.javascriptinjector import *
 from libs.mainmenu.mainmenuscreen import *
 from libs.followme.followmemenu import *
+from libs.brutelogin.bruteloginmenu import *
 
 class mainframe:
 	def __init__(self, logger):
@@ -58,9 +59,10 @@ class mainframe:
 
 			 if firstelement == 'd':
 				 self.debug = True
-				 self.current_url = "https://www.wufoo.com/html5/types/11-hidden.html"
+				 #self.current_url = "https://www.wufoo.com/html5/types/11-hidden.html"
+				 self.current_url = "http://bugbound.co.uk/user"
 				 self.open_url(self.current_url)
-				 firstelement="html"
+				 firstelement="brute"
 				 
 			 
 			 if firstelement == 'goto':
@@ -110,7 +112,9 @@ class mainframe:
 				 
 			 if firstelement == 'spider':
 				 SpiderScreen(self.screen, self.curses_util, self.current_url, self.proxy_host, self.proxy_port).show()
-				 
+
+			 if firstelement == 'brute':
+				 BruteLoginScreen(self.screen, self.driver, self.curses_util, self.jsinjector).show()				 
 			 #if firstelement == 'javascript':
 				# ResendScreen(self.screen, self.curses_util)
 			 
