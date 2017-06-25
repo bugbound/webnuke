@@ -13,6 +13,7 @@ class MainMenuScreen:
 		self.screen.addstr(9 , 4, "angularjs    - AngularJS tools menu...")
 		self.screen.addstr(10, 4, "spider       - Spider tools menu...")
 		self.screen.addstr(11, 4, "followme     - Activates followme mode...")
+		self.screen.addstr(12, 4, "brute        - Brute force login screen...")
 		self.screen.addstr(14, 4, "debug        - toggle debug on/off")
 		self.screen.addstr(15, 4, "proxy        - set proxy settings...")
 		self.screen.addstr(16, 4, "!sh          - escape to unix land...")
