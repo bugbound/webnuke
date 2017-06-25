@@ -1,16 +1,14 @@
 import curses
 from selenium.common.exceptions import WebDriverException
 
-from libs.javascript.javascriptscript import *
 from libs.brutelogin.brutelogincommands import *
 
 class BruteLoginScreen:
-	def __init__(self, screen, webdriver, curses_util, jsinjector):
+	def __init__(self, screen, webdriver, curses_util):
 		self.version=0.1
 		self.screen = screen
 		self.driver = webdriver
 		self.curses_util = curses_util
-		self.jsinjector = jsinjector
 		self.commands = BruteLoginCommands(self.driver)
 		
 		

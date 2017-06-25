@@ -115,7 +115,7 @@ class mainframe:
 				 SpiderScreen(self.screen, self.curses_util, self.current_url, self.proxy_host, self.proxy_port).show()
 
 			 if firstelement == 'brute':
-				 BruteLoginScreen(self.screen, self.driver, self.curses_util, self.jsinjector).show()				 
+				 BruteLoginScreen(self.screen, self.driver, self.curses_util).show()				 
 			 #if firstelement == 'javascript':
 				# ResendScreen(self.screen, self.curses_util)
 			 
