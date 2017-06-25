@@ -59,17 +59,11 @@ class mainframe:
 
 			 if firstelement == 'd':
 				 self.debug = True
-<<<<<<< HEAD
-				 self.current_url = "https://www.wufoo.com/html5/types/11-hidden.html"
-				 #self.current_url = "http://bugbound.co.uk/webnuketest"
-				 self.open_url(self.current_url)
-				 firstelement="javascript"
-=======
 				 #self.current_url = "https://www.wufoo.com/html5/types/11-hidden.html"
 				 self.current_url = "http://bugbound.co.uk/user"
 				 self.open_url(self.current_url)
 				 firstelement="brute"
->>>>>>> 975d263fd3c04b0b72f5974813703b968a63d5a6
+
 				 
 			 
 			 if firstelement == 'goto':
