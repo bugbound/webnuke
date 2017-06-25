@@ -6,18 +6,17 @@ class AngularUtilV2:
 		self.beta = True
 		self.webdriver = webdriver
 		self.start_url = start_url
-		self.webdriver.get(start_url)
 		self.end_url = self.webdriver.current_url
 		
 	def isAngularApp(self):
 		try:
-			result = self.webdriver.execute_script('return self.angular')
-			self.webdriver.execute_script('console.log(self.angular)')
+			result = self.webdriver.execute_script('return window.angular')
+			#self.webdriver.execute_script('console.log(self.angular)')
 			if result == None:
 				return False
 			return True
 		except:
-			pass
+			raise
 		return False
 		
 	def getVersionString(self):

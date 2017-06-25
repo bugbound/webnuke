@@ -21,9 +21,9 @@ class HTMLScreen:
 		while showscreen:
 			self.screen = self.curses_util.get_screen()
 			self.screen.addstr(2, 2, "HTML Tools")
-			self.screen.addstr(4, 5, "4) Show hidden form elements") # good demo url for this.... https://www.wufoo.com/html5/types/11-hidden.html
-			self.screen.addstr(5, 5, "5) Turn password fields into text") 
-			self.screen.addstr(6, 5, "6) Turn css visibility on for all HTML elements") 
+			self.screen.addstr(4, 5, "1) Show hidden form elements") # good demo url for this.... https://www.wufoo.com/html5/types/11-hidden.html
+			self.screen.addstr(5, 5, "2) Turn password fields into text") 
+			self.screen.addstr(6, 5, "3) Turn css visibility on for all HTML elements") 
 
 
 			
@@ -34,15 +34,15 @@ class HTMLScreen:
 			if c == ord('M') or c == ord('m'):
 				showscreen=False
 				
-			if c == ord('4'):
+			if c == ord('1'):
 				self.curses_util.close_screen()
 				self.commands.show_hidden_form_elements()
 				
-			if c == ord('5'):
+			if c == ord('2'):
 				self.curses_util.close_screen()
 				self.commands.show_password_fields_as_text()
 				
-			if c == ord('6'):
+			if c == ord('3'):
 				self.curses_util.close_screen()
 				self.commands.see_all_html_elements()
 								

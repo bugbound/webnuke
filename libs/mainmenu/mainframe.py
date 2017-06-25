@@ -25,9 +25,9 @@ class mainframe:
 		self.logger = logger
 		self.jsinjector = JavascriptInjector()
 		# load plugin javascript
-		self.plugins = [JSConsoleScript(self.jsinjector), JavascriptScript(self.jsinjector), HTMLToolsScript(self.jsinjector)]
+		self.plugins = [JSConsoleScript(self.jsinjector), JavascriptScript(self.jsinjector), HTMLToolsScript(self.jsinjector), AngularCustomJavascript(self.jsinjector)]
 		
-	def run_main(self):
+	def show_main_screen(self):
 		self.logger.log("run_main")
 		mystr = 'startup'
 		mystr_elements = mystr.split()
@@ -59,8 +59,9 @@ class mainframe:
 			 if firstelement == 'd':
 				 self.debug = True
 				 self.current_url = "https://www.wufoo.com/html5/types/11-hidden.html"
+				 #self.current_url = "http://bugbound.co.uk/webnuketest"
 				 self.open_url(self.current_url)
-				 firstelement="html"
+				 firstelement="javascript"
 				 
 			 
 			 if firstelement == 'goto':
@@ -106,7 +107,7 @@ class mainframe:
 				 JavascriptScreen(self.screen, self.driver, self.curses_util, self.jsinjector).show()
 
 			 if firstelement == 'angularjs':
-				 AngularScreen(self.screen, self.driver, self.curses_util).show()
+				 AngularScreen(self.screen, self.driver, self.curses_util, self.jsinjector).show()
 				 
 			 if firstelement == 'spider':
 				 SpiderScreen(self.screen, self.curses_util, self.current_url, self.proxy_host, self.proxy_port).show()
