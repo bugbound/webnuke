@@ -99,7 +99,7 @@ Spider will crawl the current url using the awesome KitchenSinks resource by Fuz
 ### Spider Options
 
 1. Set Url to spider                                                       
-2) Run Kitchensinks in foreground
+2. Run Kitchensinks in foreground
 
 
 ## Followme
@@ -110,9 +110,6 @@ The followme option is useful for testing authenicated access, this option will 
 2. activate followme
 3. click around the web application using the browser thats currently logged in
 4. Urls visited will be loaded in the unauthenicated second browser instance
-
-
-will open another browser instance and will visit the urls 
 
 
 ## Brute
