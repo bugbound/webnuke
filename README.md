@@ -55,6 +55,10 @@ wn_showAngularRoutes() - Show AngularJS URL Routes
 ## HTML tools menu
 
 The HTML tools can be used to expose hidden form elements and can also control the browser by clicking every HTML elements on the page. 
+
+The click every element option can take abit of time to complete but can be helpful flushing out urls for the site.
+
+The type 'test' option is useful when dealing with Ajax calls.
                                         
 ### Options                                                                        
 1. Show hidden form elements                                    
