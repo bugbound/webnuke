@@ -68,10 +68,24 @@ The type 'test' option is useful when dealing with Ajax calls.
 5. Type 'test' into every text box
 
 
-## javascript
+## Javascript
 
 ### Javascript Options
                                                                               
 1. Find URLS within Javascript Global Properties                          
 2. Show Javascript functions of Document                                  
 3. Run all js functions without args  
+
+
+## AngularJS
+
+The main advantage of the AngularJS option is the ability to try and attempt data extraction from any service or api defined using the AngularJS ngResource class within the AngularJS web application.
+
+### AngularJS Options
+
+1) Show Main Application Name                                              
+2) Show Routes (Urls to things!)                                                            
+3) Show Dependencies                                                       
+4) Show Main Classes                                                       
+5) Show All Classes                                                        
+6) Test classes relying on ngResource 
