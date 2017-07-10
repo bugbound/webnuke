@@ -27,6 +27,7 @@ alert(msg);
 ```
 
 ### Internal commands
+```
 wn_help() - Shows WebNuke Help
 wn_findMethodsOfThis() - print javascript methods
 wn_getMethodsPlusCode() - print javascript methods and code
@@ -42,5 +43,5 @@ wn_showAngularMainClasses() - Show AngularJS Main Classes
 wn_showAngularAllClasses() - Show AngularJS All Classes
 wn_testNgResourceClasses() - Test ngResource Classes
 wn_showAngularRoutes() - Show AngularJS URL Routes
-
+```
 
