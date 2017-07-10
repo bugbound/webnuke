@@ -18,10 +18,11 @@ Detect technologies in use not by parsing files or applying regex to file names 
 The jsconsole option allows you to execute javascript or run internal webnuke javascript.
 
 ### Demo:
-
+```javascript
 var msg="hello world";
 alert(msg);
 @@@
+'''
 
 ### Internal commands
 wn_help() - Shows WebNuke Help
