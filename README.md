@@ -22,7 +22,7 @@ The jsconsole option allows you to execute javascript or run internal webnuke ja
 var msg="hello world";
 alert(msg);
 @@@
-'''
+```
 
 ### Internal commands
 wn_help() - Shows WebNuke Help
