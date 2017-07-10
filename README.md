@@ -26,7 +26,14 @@ alert(msg);
 @@@
 ```
 
-### Internal commands
+### To escape back to menu
+```javascript
+quit()
+@@@
+```
+
+
+### Internal Webnuke Javascript Functions
 ```
 wn_help() - Shows WebNuke Help
 wn_findMethodsOfThis() - print javascript methods
