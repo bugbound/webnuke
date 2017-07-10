@@ -83,9 +83,39 @@ The main advantage of the AngularJS option is the ability to try and attempt dat
 
 ### AngularJS Options
 
-1) Show Main Application Name                                              
-2) Show Routes (Urls to things!)                                                            
-3) Show Dependencies                                                       
-4) Show Main Classes                                                       
-5) Show All Classes                                                        
-6) Test classes relying on ngResource 
+1. Show Main Application Name                                              
+2. Show Routes (Urls to things!)                                                            
+3. Show Dependencies                                                       
+4. Show Main Classes                                                       
+5. Show All Classes                                                        
+6. Test classes relying on ngResource 
+
+
+## Spider
+
+Spider will crawl the current url using the awesome KitchenSinks resource by FuzzDB
+
+### Spider Options
+
+1. Set Url to spider                                                       
+2) Run Kitchensinks in foreground
+
+
+## Followme
+
+The followme option is useful for testing authenicated access, this option will open another browser instance and visit the urls being visited by the orinigal browser instance.
+
+1. login as an a user
+2. activate followme
+3. click around the web application using the browser thats currently logged in
+4. Urls visited will be loaded in the unauthenicated second browser instance
+
+
+will open another browser instance and will visit the urls 
+
+
+## Brute
+
+The brute option will attempt to brute force login screens, first the user has to identify the login and password fields by supplying nukeuser into the username field amd nukepass into the password field.
+
+The username and password list is limited and left to the user to supply/code.
