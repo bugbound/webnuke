@@ -26,6 +26,8 @@ class HTMLCommands:
 		print ''
 		print ''
 		raw_input("Press ENTER to return to menu.")
+
+
 		
 	def click_everything(self):
 		start_url = self.driver.current_url
@@ -88,3 +90,22 @@ class HTMLCommands:
 		print ''
 		raw_input("Press ENTER to return to menu.")
 		
+	def type_into_everything(self):
+		all_text_elements = self.driver.find_elements_by_xpath('//input[@type="text"]')
+		for x in all_text_elements:
+			x.send_keys("test")
+		print "'test' typed into %d text elements"%len(all_text_elements)
+
+		all_text_elements = self.driver.find_elements_by_xpath('//input[@type="password"]')
+		for x in all_text_elements:
+			x.send_keys("test")
+		print "'test' typed into %d password elements"%len(all_text_elements)
+
+		all_text_elements = self.driver.find_elements_by_xpath('//textarea')
+		for x in all_text_elements:
+			x.send_keys("test")
+		print "'test' typed into %d textarea elements"%len(all_text_elements)
+
+
+		print ''
+		raw_input("Press ENTER to return to menu.")
