@@ -52,3 +52,13 @@ wn_testNgResourceClasses() - Test ngResource Classes
 wn_showAngularRoutes() - Show AngularJS URL Routes
 ```
 
+## HTML tools menu
+
+The HTML tools can be used to expose hidden form elements and can also control the browser by clicking every HTML elements on the page. 
+                                        
+### Options                                                                        
+1. Show hidden form elements                                    
+2. Turn password fields into text                                         
+3. Turn css visibility on for all HTML elements                           
+4. Click every element on the page                                        
+5. Type 'test' into every text box
