@@ -60,9 +60,18 @@ The click every element option can take abit of time to complete but can be help
 
 The type 'test' option is useful when dealing with Ajax calls.
                                         
-### Options                                                                        
+### HTML Options                                                                        
 1. Show hidden form elements                                    
 2. Turn password fields into text                                         
 3. Turn css visibility on for all HTML elements                           
 4. Click every element on the page                                        
 5. Type 'test' into every text box
+
+
+## javascript
+
+### Javascript Options
+                                                                              
+1. Find URLS within Javascript Global Properties                          
+2. Show Javascript functions of Document                                  
+3. Run all js functions without args  
