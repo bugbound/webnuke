@@ -23,13 +23,15 @@ window.wn_getMethods = function getMethods(obj) {
 window.wn_getMethodsPlusCode = function getMethods(obj) {
   var result = [];
   for (var id in obj) {
-	try {
-	  if (typeof(obj[id]) == "function") {
-		result.push(id+":"+obj[id].toString());
+	  if(id.startsWith('wn_') == false){	
+		try {
+		  if (typeof(obj[id]) == "function") {
+			result.push(id+":"+obj[id].toString());
+		  }
+		} catch (err) {
+		  result.push(id);
+		}
 	  }
-	} catch (err) {
-	  result.push(id);
-	}
   }
   return result;
 };

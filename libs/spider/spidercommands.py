@@ -57,5 +57,5 @@ class SpiderCommands:
 		
 	def log_result(self, r, url_to_try):
 		if r.status_code != 404:
-			print '%s %s'%(r.status_code, url_to_try)
+			print '%s - %s'%(r.status_code, url_to_try)
 		

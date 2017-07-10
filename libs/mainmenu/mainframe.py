@@ -36,10 +36,7 @@ class mainframe:
 
 		while firstelement != 'quit' and firstelement != 'q':
 			 self.screen = self.curses_util.get_screen()
-
 			 MainMenuScreen(self.screen, curses).drawscreen()
-			 
-			 
 			 
 			 if self.warning is not '':
 				 self.screen.addstr(22, 2, self.warning, curses.color_pair(1))
@@ -60,20 +57,16 @@ class mainframe:
 			 if firstelement == 'd':
 				 self.debug = True
 				 #self.current_url = "https://www.wufoo.com/html5/types/11-hidden.html"
-				 self.current_url = "http://bugbound.co.uk/user"
+				 self.current_url = "http://bugbound.co.uk/"
 				 self.open_url(self.current_url)
-				 firstelement="brute"
+				 firstelement="html"
 
-				 
-			 
 			 if firstelement == 'goto':
 				 if len(mystr_elements) >= 2:
 					 url = mystr_elements[1]
 				 else:
 					 url = self.curses_util.get_param("Enter the url")
-				
-				 self.open_url(url)
-				 
+				 self.open_url(url)				 
 			 
 			 if firstelement == 'debug':
 				  self.debug = not self.debug
@@ -86,11 +79,9 @@ class mainframe:
 				 if len(mystr_elements) >= 2:
 					 url = mystr_elements[1]
 					 self.open_url(url)
-				 
 				 if self.driver == 'notset':
 					 self.warning = "QUICKDETECT requires a url is loaded, please set a url using GOTO"
 					 return
-					
 				 QuickDetect(self.screen, self.driver, self.curses_util).run()
 			 
 			 if firstelement == 'jsconsole':
@@ -100,7 +91,6 @@ class mainframe:
 			 if firstelement == 'followme':
 				 self.curses_util.close_screen()
 				 FollowmeScreen(self.screen, self.driver, self.curses_util, self.debug, self.proxy_host, self.proxy_port, self.logger).run()
-
 				 
 			 if firstelement == '!sh':
 				  self.curses_util.execute_cmd("bash")
@@ -112,22 +102,20 @@ class mainframe:
 				 AngularScreen(self.screen, self.driver, self.curses_util, self.jsinjector).show()
 				 
 			 if firstelement == 'spider':
-				 SpiderScreen(self.screen, self.curses_util, self.current_url, self.proxy_host, self.proxy_port).show()
+				 SpiderScreen(self.screen, self.curses_util, self.proxy_host, self.proxy_port).show(self.driver.current_url)
 
 			 if firstelement == 'brute':
 				 BruteLoginScreen(self.screen, self.driver, self.curses_util).show()				 
-			 #if firstelement == 'javascript':
-				# ResendScreen(self.screen, self.curses_util)
 			 
 			 if firstelement == 'html':
 				 HTMLScreen(self.screen, self.driver, self.curses_util, self.jsinjector).show()
-
 
 		self.curses_util.close_screen()
 	def create_browser_instance(self):
 		self.webdriver_util = WebDriverUtil()
 		self.webdriver_util.setDebug(self.debug)
 		if self.proxy_host is not '' and int(self.proxy_port) is not 0:
+			print "getting webdriver with proxy support"
 			return self.webdriver_util.getDriverWithProxySupport(self.proxy_host, int(self.proxy_port))
 		else:
 			return self.webdriver_util.getDriver(self.logger)
@@ -136,6 +124,5 @@ class mainframe:
 		if self.driver == 'notset':
 			self.driver = self.create_browser_instance()
 		self.current_url = url
-		
 		self.driver.get(url)
 		self.current_url = self.driver.current_url
