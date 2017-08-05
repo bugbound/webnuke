@@ -36,17 +36,19 @@ class HTMLCommands:
 		print "Found %d elements on page %s"%(baseline_elements_count, start_url)
 		current_element_index=0
 		
-		doPageReload=False
+		urls_found = []
 		
+		doPageReload=False
+		print "Clicking..."
 		for currect_element_index in range(baseline_elements_count):
 			if doPageReload:
-				print "PAGE RELOAD"
+				#print "PAGE RELOAD"
 				self.driver.get(start_url)
 			
 			try:
 				doPageReload=False
 				all_elements = self.driver.find_elements_by_xpath('//*')
-				print "%d/%d"%(currect_element_index+1, len(all_elements)+1)
+				#print "%d/%d"%(currect_element_index+1, len(all_elements)+1)
 				current_element = all_elements[currect_element_index]
 				current_element.click()
 				#print 'Linktext: %s'%link_text
@@ -55,7 +57,9 @@ class HTMLCommands:
 				
 				
 				if self.driver.current_url != start_url:
-					print self.driver.current_url
+					if self.driver.current_url not in urls_found:
+						urls_found.append(self.driver.current_url)
+					print "%d/%d - %s"%(currect_element_index+1, len(all_elements)+1, self.driver.current_url)
 					doPageReload = True
 					
 				# for speed, if we have same amount of elements on page then continue...
@@ -85,8 +89,12 @@ class HTMLCommands:
 				print "!!!STALE!!!"
 				pass
 			except:
-				print "Something unexpected happened"
-				raise
+				print "Something unexpected happened!!!"
+				pass
+		print ''
+		print 'Found the following pages: '
+		for url in urls_found:
+			print "\t%s" % url
 		print ''
 		raw_input("Press ENTER to return to menu.")
 		

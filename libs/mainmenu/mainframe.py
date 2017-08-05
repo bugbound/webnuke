@@ -56,8 +56,7 @@ class mainframe:
 
 			 if firstelement == 'd':
 				 self.debug = True
-				 #self.current_url = "https://www.wufoo.com/html5/types/11-hidden.html"
-				 self.current_url = "http://bugbound.co.uk/"
+				 self.current_url = "http://www.bugbound.co.uk"
 				 self.open_url(self.current_url)
 				 firstelement="html"
 
@@ -124,5 +123,8 @@ class mainframe:
 		if self.driver == 'notset':
 			self.driver = self.create_browser_instance()
 		self.current_url = url
-		self.driver.get(url)
-		self.current_url = self.driver.current_url
+		try:
+			self.driver.get(url)
+			self.current_url = self.driver.current_url
+		except:
+			pass

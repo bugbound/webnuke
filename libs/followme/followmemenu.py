@@ -1,6 +1,7 @@
-from libs.utils.WebDriverUtil import *
-import thread
 import time
+from libs.followme.followmecommands import *
+
+followme_count = 0
 
 class FollowmeScreen:
 	def __init__(self, screen, webdriver, curses_util, debug, proxy_host, proxy_port, logger):
@@ -13,50 +14,43 @@ class FollowmeScreen:
 		self.proxy_host = proxy_host
 		self.proxy_port = proxy_port
 		self.logger = logger
-		
-		
-		#self.commands = HTMLCommands(self.driver, self.jsinjector)
+		self.commands = FollowmeCommands(self.driver, self.debug, self.proxy_host, self.proxy_port, self.logger)
 		
 		
 	def run(self):
-		showscreen = True
-		
-		newdriver = self.create_browser_instance()
-		thread.start_new_thread(self.linkbrowsers, (self.driver, newdriver, self.logger))
-		
+		showscreen = True		
+		global followme_count
 		
 		while showscreen:
+			paused = self.commands.get_paused()
 			self.screen = self.curses_util.get_screen()
-			self.screen.addstr(2, 2, "Followme activated!")
+			self.screen.addstr(2, 2, "Followme "+str(followme_count))
+			self.screen.addstr(4,  4, "1) Start new follow me")
+			if paused == False:
+				self.screen.addstr(6,  4, "2) PAUSE follow me")
+			if paused:
+				self.screen.addstr(7,  4, "3) RESUME follow me")
 			
 			self.screen.addstr(22, 28, "PRESS M FOR MAIN MENU")
+			if paused:
+				self.screen.addstr(23, 28, " -  P A U S E D   -  ")
 			self.screen.refresh()
 			
 			c = self.screen.getch()
 			if c == ord('M') or c == ord('m'):
 				showscreen=False
+			
+			if c == ord('1'):
+				self.commands.start_new_instance()
+				followme_count+=1
+
+			if c == ord('2'):
+				self.commands.pause_all()
+
+			if c == ord('3'):
+				self.commands.resume_all()
 												
 		return
 		
-	def create_browser_instance(self):
-		self.webdriver_util = WebDriverUtil()
-		self.webdriver_util.setDebug(self.debug)
-		if self.proxy_host is not '' and int(self.proxy_port) is not 0:
-			return self.webdriver_util.getDriverWithProxySupport(self.proxy_host, int(self.proxy_port))
-		else:
-			return self.webdriver_util.getDriver(self.logger)	
 		
-	def linkbrowsers(self, maindriver, followmedriver, logger):
-		while(True):
-			try:
-				main_url = maindriver.current_url
-				if followmedriver.current_url != main_url:
-					followmedriver.get(main_url)
-					current_url = followmedriver.current_url
-					logger.log("Followme on %s"%current_url)
-				#time.sleep(5)
-			except:
-				pass
-			finally:
-				time.sleep(0.5)
 				

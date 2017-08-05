@@ -15,10 +15,10 @@ class WebDriverUtil:
 	
 	def getWebDriverProfile(self):
 		profile = webdriver.FirefoxProfile()
-		profile.set_preference("browser.cache.disk.enable", False)
-		profile.set_preference("browser.cache.memory.enable", False)
-		profile.set_preference("browser.cache.offline.enable", False)
-		profile.set_preference("network.http.use-cache", False)
+		#profile.set_preference("browser.cache.disk.enable", False)
+		#profile.set_preference("browser.cache.memory.enable", False)
+		#profile.set_preference("browser.cache.offline.enable", False)
+		#profile.set_preference("network.http.use-cache", False)
 		return profile
 		
 	def getDriverWithProxySupport(self, proxy_host, proxy_port):

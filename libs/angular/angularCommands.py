@@ -48,3 +48,15 @@ class AngularCommands:
 		print ''
 		raw_input("Press ENTER to return to menu.")
 		
+	def show_http_tests(self):
+		# ngResource classes generally communicate with api endpoints... run with proxy to capture api calls.
+		print "Testing classes using $http, please wait..."
+		print ''
+		self.jsinjector.execute_javascript(self.driver, "wn_testHTTPClasses();")
+		time.sleep(10)
+		result = self.jsinjector.execute_javascript(self.driver, "console.log('All done son.');")
+		print result;
+		print ''
+		print ''
+		raw_input("Press ENTER to return to menu.")		
+		

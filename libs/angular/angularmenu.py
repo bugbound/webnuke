@@ -19,12 +19,13 @@ class AngularScreen:
 			self.screen = self.curses_util.get_screen()
 			self.screen.addstr(2, 2, "AngularJS Tools")
 			
-			self.screen.addstr(4, 4, "1) Show Main Application Name")
-			self.screen.addstr(5, 4, "2) Show Routes")
-			self.screen.addstr(6, 4, "3) Show Dependencies")
-			self.screen.addstr(7, 4, "4) Show Main Classes")
-			self.screen.addstr(8, 4, "5) Show All Classes")
-			self.screen.addstr(9, 4, "6) Test classes relying on ngResource")
+			self.screen.addstr(4,  4, "1) Show Main Application Name")
+			self.screen.addstr(5,  4, "2) Show Routes")
+			self.screen.addstr(6,  4, "3) Show Dependencies")
+			self.screen.addstr(7,  4, "4) Show Main Classes")
+			self.screen.addstr(8,  4, "5) Show All Classes")
+			self.screen.addstr(9,  4, "6) Test classes relying on ngResource")
+			self.screen.addstr(10, 4, "7) Test classes with get() and query()")
 				
 			self.screen.addstr(22, 28, "PRESS M FOR MAIN MENU")
 			self.screen.refresh()
@@ -56,6 +57,10 @@ class AngularScreen:
 			if c == ord('6'):
 				self.curses_util.close_screen()
 				self.commands.show_ngResource_tests()
+
+			if c == ord('7'):
+				self.curses_util.close_screen()
+				self.commands.show_http_tests()
 				
 		return
 		

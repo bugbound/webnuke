@@ -15,3 +15,6 @@ class AngularCustomJavascript:
 		self.jsinjector.add_help_topic('wn_showAngularRoutes()', 'Show AngularJS URL Routes')
 		self.jsinjector.add_js_file('libs/angular/js/show-routes.js')
 		
+		self.jsinjector.add_help_topic('wn_testHTTPClasses()', 'Test Angular Classes with get and query methods')
+		self.jsinjector.add_js_file('libs/angular/js/test-http.js')
+		

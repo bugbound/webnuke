@@ -1,3 +1,5 @@
+from selenium.common.exceptions import WebDriverException
+
 class JavascriptInjector:
 	def __init__(self):
 		self.version = 0.1

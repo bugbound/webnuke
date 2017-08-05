@@ -37,7 +37,11 @@ class SpiderScreen:
 			
 			if c == ord('2'):
 				self.curses_util.close_screen()
-				self.commands.run_kitchensinks_in_foreground(self.current_url)
+				try:
+					self.commands.run_kitchensinks_in_foreground(self.current_url)
+				except:
+					print "meh"
+					pass
 			
 				
 				
