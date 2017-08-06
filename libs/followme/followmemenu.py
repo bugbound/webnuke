@@ -24,16 +24,16 @@ class FollowmeScreen:
 		while showscreen:
 			paused = self.commands.get_paused()
 			self.screen = self.curses_util.get_screen()
-			self.screen.addstr(2, 2, "Followme "+str(followme_count))
+			self.screen.addstr(11, 2, "Followme running instances: "+str(followme_count))
 			self.screen.addstr(4,  4, "1) Start new follow me")
 			if paused == False:
 				self.screen.addstr(6,  4, "2) PAUSE follow me")
 			if paused:
 				self.screen.addstr(7,  4, "3) RESUME follow me")
-			
+			self.screen.addstr(8,  4, "4) Kill all running instances")
 			self.screen.addstr(22, 28, "PRESS M FOR MAIN MENU")
 			if paused:
-				self.screen.addstr(23, 28, " -  P A U S E D   -  ")
+				self.screen.addstr(23, 28, "| -  P A U S E D   - |")
 			self.screen.refresh()
 			
 			c = self.screen.getch()
@@ -41,14 +41,23 @@ class FollowmeScreen:
 				showscreen=False
 			
 			if c == ord('1'):
-				self.commands.start_new_instance()
-				followme_count+=1
+				try:
+					self.commands.start_new_instance()
+					followme_count+=1
+				except:
+					print "ERROR"
+					self.logger.log("EEE - error at start new followme instance")
+					raise
 
 			if c == ord('2'):
 				self.commands.pause_all()
 
 			if c == ord('3'):
 				self.commands.resume_all()
+			
+			if c == ord('4'):
+				self.commands.kill_all()
+				followme_count=0
 												
 		return
 		

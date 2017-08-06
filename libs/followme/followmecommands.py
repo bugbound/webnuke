@@ -3,6 +3,8 @@ import thread
 from libs.utils.WebDriverUtil import *
 
 paused = False
+run_thread = True
+running_browsers = []
 
 class FollowmeCommands:
 	def __init__(self, webdriver, debug, proxy_host, proxy_port, logger):
@@ -14,8 +16,13 @@ class FollowmeCommands:
 		self.logger = logger
 	
 	def start_new_instance(self):
+		global run_thread
+		global running_browsers
+		run_thread = True
 		browser = self.create_browser_instance()
+		running_browsers.append(browser)
 		newthread = thread.start_new_thread(self.linkbrowsers, (self.driver, browser))
+		
 		
 	def pause_all(self):
 		global paused
@@ -24,6 +31,15 @@ class FollowmeCommands:
 	def resume_all(self):
 		global paused
 		paused = False
+
+	def kill_all(self):
+		global run_thread
+		global running_browsers
+		run_thread = False
+		for x in running_browsers:
+			x.quit()
+		
+
 		
 	def get_paused(self):
 		return paused
@@ -38,7 +54,8 @@ class FollowmeCommands:
 
 	def linkbrowsers(self, maindriver, followmedriver):
 		global paused
-		while(True):
+		global run_thread
+		while(run_thread):
 			if(paused == False):
 				try:
 					main_url = maindriver.current_url
