@@ -89,6 +89,7 @@ class HTMLCommands:
 				print "!!!STALE!!!"
 				pass
 			except:
+				doPageReload = True
 				print "Something unexpected happened!!!"
 				pass
 		print ''
