@@ -6,12 +6,30 @@ class CursesUtil:
 	def __init__(self):
 		self.version = 0.1
 		self.current_url = "NONE"
+		self.x = 0;
+		self.y = 0;
 	
 	def get_screen(self):
 		self.screen = curses.initscr()
+		
 		curses.start_color()
 		curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
 		curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_BLACK)
+		
+		if self.x == 0:
+			starty, startx = self.screen.getmaxyx()
+			self.x = startx
+			self.y = starty
+			
+		resize = curses.is_term_resized(self.y, self.x)
+		
+		# Action in loop if resize is True:
+		if resize is True:
+			y, x = self.screen.getmaxyx()
+			self.screen.clear()
+			curses.resizeterm(self.y, self.x)
+			self.screen.refresh()
+		
 		
 		self.show_header()
 		
