@@ -119,3 +119,9 @@ The followme option is useful for testing authenicated access, this option will 
 The brute option will attempt to brute force login screens, first the user has to identify the login and password fields by supplying nukeuser into the username field amd nukepass into the password field.
 
 The username and password list is limited and left to the user to supply/code.
+
+
+## AWS
+
+The aws option will attempt to detect if any image files, css files, javascript files, meta tags and link tags reference a url that points to an AWS S3 Bucket.
+
