@@ -41,7 +41,7 @@ class CursesUtil:
 	def show_header(self):
 		self.screen.clear()
 		self.screen.border(0)
-		self.screen.addstr(0, 28, " WEBNUKE V1.4.2 - BETA ", curses.color_pair(2))
+		self.screen.addstr(0, 28, " WEBNUKE V1.5 - BETA ", curses.color_pair(2))
 		
 		
 	def get_param(self, prompt_string):

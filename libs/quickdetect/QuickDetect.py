@@ -3,15 +3,16 @@ from libs.quickdetect.AngularUtil import *
 from libs.quickdetect.WordPressUtil import *
 from libs.quickdetect.DrupalUtil import *
 from libs.quickdetect.JQueryUtil import *
-
+from libs.quickdetect.AWSS3Util import *
 
 class QuickDetect:
-	def __init__(self, screen, webdriver, curses_util):
+	def __init__(self, screen, webdriver, curses_util, logger):
 		self.version = 0.1
 		self.screen = screen
 		self.driver = webdriver
 		self.current_url = self.driver.current_url
 		self.curses_util = curses_util
+		self.logger = logger
 		
 	def run(self):
 		angular_util = AngularUtilV2(self.driver, self.current_url)
@@ -45,6 +46,13 @@ class QuickDetect:
 		if is_dojo:
 			dojo_version = dojo_util.getVersionString()
 		
+		s3util = AWSS3Util(self.driver, self.current_url, self.logger)
+		isS3 = s3util.hasS3Buckets()
+		S3 = ''
+		if isS3:
+			S3 = s3util.getUrlString()
+			
+			
 		showscreen = True
 		
 		while showscreen:
@@ -87,6 +95,13 @@ class QuickDetect:
 				message = "Dojo Discovered"
 				if dojo_version is not None:
 					message += " ("+dojo_version+")"
+				self.screen.addstr(current_line, 4, message, curses.color_pair(2))
+				current_line += 1
+			
+			if isS3:
+				message = "AWS S3 Bucket Detected"
+				if S3 is not None:
+					message += " ("+S3+")"
 				self.screen.addstr(current_line, 4, message, curses.color_pair(2))
 				current_line += 1
 				

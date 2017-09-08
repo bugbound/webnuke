@@ -13,6 +13,7 @@ from libs.utils.javascriptinjector import *
 from libs.mainmenu.mainmenuscreen import *
 from libs.followme.followmemenu import *
 from libs.brutelogin.bruteloginmenu import *
+from libs.aws.awsmenu import *
 
 class mainframe:
 	def __init__(self, logger):
@@ -49,7 +50,7 @@ class mainframe:
 					 self.screen.addstr(0, 71, "DEBUG ON", curses.color_pair(1))
 				 self.screen.refresh()
 
-				 mystr = self.screen.getstr(20,4).decode(encoding="utf-8")
+				 mystr = self.screen.getstr(21,4).decode(encoding="utf-8")
 				 mystr_elements = mystr.split()
 				 firstelement='notset'
 				 if len(mystr_elements) >= 1:
@@ -57,11 +58,11 @@ class mainframe:
 
 				 if firstelement == 'd':
 					 self.debug = True
-					 self.current_url = "http://bugbound.co.uk"
+					 self.current_url = "http://www.bugbound.co.uk"
 					 #self.proxy_host = '10.0.0.29'
 					 #self.proxy_port = 8080
 					 self.open_url(self.current_url)
-					 firstelement="followme"
+					 firstelement="quickdetect"
 
 				 if firstelement == 'goto':
 					 if len(mystr_elements) >= 2:
@@ -84,7 +85,7 @@ class mainframe:
 					 if self.driver == 'notset':
 						 self.warning = "QUICKDETECT requires a url is loaded, please set a url using GOTO"
 						 return
-					 QuickDetect(self.screen, self.driver, self.curses_util).run()
+					 QuickDetect(self.screen, self.driver, self.curses_util, self.logger).run()
 				 
 				 if firstelement == 'jsconsole':
 					 self.curses_util.close_screen()
@@ -108,6 +109,9 @@ class mainframe:
 
 				 if firstelement == 'brute':
 					 BruteLoginScreen(self.screen, self.driver, self.curses_util).show()				 
+				 
+				 if firstelement == 'aws':
+					 AWSScreen(self.screen, self.driver, self.curses_util, self.logger).show()				 
 				 
 				 if firstelement == 'html':
 					 HTMLScreen(self.screen, self.driver, self.curses_util, self.jsinjector).show()
