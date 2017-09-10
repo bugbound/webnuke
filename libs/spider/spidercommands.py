@@ -2,10 +2,10 @@ import time
 import requests
 
 class SpiderCommands:
-	def __init__(self, proxy_host, proxy_port):
+	def __init__(self, webdriver):
 		self.version = 0.1
-		self.proxy_host = proxy_host
-		self.proxy_port = proxy_port
+		self.webdriver = webdriver
+		self.default_page_element_count = 0 
 		
 	def run_kitchensinks_in_foreground(self, url):
 		print "Running Kitchensinks on %s, please wait..."%url
@@ -19,9 +19,8 @@ class SpiderCommands:
 			content = f.read().splitlines()
 		for line in content:
 			url_to_try = self.build_full_url(url, line)
-			r = self.get_result(url_to_try)
-			if r is not None:
-				self.log_result(r, url_to_try)
+			r = self.try_url(url_to_try)
+		
 			
 		print ''
 		print ''
@@ -29,24 +28,31 @@ class SpiderCommands:
 		
 	def build_full_url(self, url, line):
 		url_to_return = url
-		if line[0] == '/' and url[-1] == '/': 
+		
+		if '#' in url:
+			url_without_hash = url.split('#')[0]
+			url_to_return = url_without_hash+'#'+line
+		elif line[0] == '/' and url[-1] == '/': 
 			url_to_return += line[1:]
 		else:
 			url_to_return = url+"/"+line
 			
 		return url_to_return
 	
-	def get_result(self, url_to_try):
-		proxies = {
-					'http': 'http://%s:%s'%(self.proxy_host, self.proxy_port),
-					'https': 'http://%s:%s'%(self.proxy_host, self.proxy_port),
-		}
-		
+	def try_url(self, url_to_try):		
 		try:
-			if self.proxy_port > 0:
-				return requests.get(url_to_try, proxies=proxies, verify=False)
+			if self.default_page_element_count == 0:
+				all_elements = self.webdriver.find_elements_by_xpath('//*')
+				self.default_page_element_count = len(all_elements)
+			self.webdriver.get(url_to_try)
+			#time.sleep(0.5)
+			newurl = self.webdriver.current_url
+			new_elements = self.webdriver.find_elements_by_xpath('//*')
+			new_elements_count= len(new_elements)
+			if new_elements_count != self.default_page_element_count:
+				print "XXX "+url_to_try
+			
 		
-			return requests.get(url_to_try, verify=False)
 		except:
 			print "!!!ERROR - "+url_to_try
 			time.sleep(10)

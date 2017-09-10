@@ -105,7 +105,7 @@ class mainframe:
 					 AngularScreen(self.screen, self.driver, self.curses_util, self.jsinjector).show()
 					 
 				 if firstelement == 'spider':
-					 SpiderScreen(self.screen, self.curses_util, self.proxy_host, self.proxy_port).show(self.driver.current_url)
+					 SpiderScreen(self.screen, self.curses_util, self.driver).show(self.driver.current_url)
 
 				 if firstelement == 'brute':
 					 BruteLoginScreen(self.screen, self.driver, self.curses_util).show()				 

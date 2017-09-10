@@ -2,14 +2,13 @@ import curses
 from libs.spider.spidercommands import *
 
 class SpiderScreen:
-	def __init__(self, screen, curses_util, proxy_host, proxy_port):
+	def __init__(self, screen, curses_util, webdriver):
 		self.version=0.1
 		self.screen = screen
 		self.curses_util = curses_util
-		self.proxy_host = proxy_host
-		self.proxy_port = proxy_port
+		self.webdriver = webdriver
 		
-		self.commands = SpiderCommands(proxy_host, proxy_port)
+		self.commands = SpiderCommands(self.webdriver)
 		
 	def show(self, currenturl):
 		self.current_url = currenturl
