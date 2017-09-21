@@ -11,7 +11,8 @@ class SpiderCommands:
 		print "Running Kitchensinks on %s, please wait..."%url
 		print ''
 		print ''
-		kitchensinks_path = 'libs/spider/data/fuzzdb/discovery/predictable-filepaths/KitchensinkDirectories.txt'
+		# try fuzzdb, kitchensinks
+		kitchensinks_path = 'libs/spider/KitchensinkDirectories.txt'
 		
 		
 		
