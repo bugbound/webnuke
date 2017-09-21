@@ -10,11 +10,11 @@ class AngularUtilV2:
 		
 	def isAngularApp(self):
 		try:
-			result = self.webdriver.execute_script('return window.angular')
+			result = self.webdriver.execute_script("return (typeof window.angular != 'undefined')")
 			#self.webdriver.execute_script('console.log(self.angular)')
 			if result == None:
 				return False
-			return True
+			return result
 		except:
 			raise
 		return False

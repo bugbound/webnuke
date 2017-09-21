@@ -73,3 +73,11 @@ window.wn_findStringsWithUrls = function(){
 		}
 	}
 };	
+
+
+window.wn_showCookie = function(){
+	console.log('webnuke: Show Cookies');
+	console.log('-=-=-=-=-=-=-=-=-=-=-')
+	console.log(document.cookie);
+	
+}

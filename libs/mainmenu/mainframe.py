@@ -58,7 +58,7 @@ class mainframe:
 
 				 if firstelement == 'd':
 					 self.debug = True
-					 self.current_url = "http://www.bugbound.co.uk"
+					 self.current_url = "http://localhost:8000"
 					 #self.proxy_host = '10.0.0.29'
 					 #self.proxy_port = 8080
 					 self.open_url(self.current_url)

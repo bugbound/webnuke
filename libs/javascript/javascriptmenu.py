@@ -23,6 +23,7 @@ class JavascriptScreen:
 			self.screen.addstr(4, 5, "1) Find URLS within Javascript Global Properties")
 			self.screen.addstr(5, 5, "2) Show Javascript functions of Document")
 			self.screen.addstr(6, 5, "3) Run all js functions without args")
+			self.screen.addstr(7, 5, "4) Show Cookies accessable by Javascript")
 
 
 			
@@ -44,6 +45,11 @@ class JavascriptScreen:
 			if c == ord('3'):
 				self.curses_util.close_screen()
 				self.commands.run_lone_javascript_functions()
+
+			if c == ord('4'):
+				self.curses_util.close_screen()
+				self.commands.show_cookies()
+
 								
 		return
 		

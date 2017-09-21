@@ -66,6 +66,15 @@ class JavascriptCommands:
 
 		print ''
 		raw_input("Press ENTER to return to menu.")
+
+	def show_cookies(self):
+		self.jsinjector.execute_javascript(self.driver, 'wn_showCookie()')
+		print ''
+		print ''
+		raw_input("Press ENTER to return to menu.")
+
+
+
 			
 	def executeJavascriptAndReturnArray(self, javascript):
 		try:
