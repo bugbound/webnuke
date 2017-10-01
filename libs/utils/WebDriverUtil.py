@@ -2,7 +2,6 @@ from pyvirtualdisplay import Display
 from selenium import webdriver
 import selenium.webdriver.support.ui as ui
 
-
 class WebDriverUtil:
 	def __init__(self):
 		self.version = 0.1
@@ -50,7 +49,9 @@ class WebDriverUtil:
 		#self.proxy_support = ProxySupport('webnuke-proxy', webnuke_config_proxy_port, webnuke_config_web_api_url)
 		profile = self.getWebDriverProfile()
 		profile.update_preferences()
-		newdriver = webdriver.Firefox(firefox_profile=profile)
+		capabilities = webdriver.DesiredCapabilities().FIREFOX
+		capabilities["marionette"] = False
+		newdriver = webdriver.Firefox(firefox_profile=profile, capabilities=capabilities)
 		#self.driver = self.getDriverWithProxySupport('localhost', webnuke_config_proxy_port)
 		return newdriver
 		
