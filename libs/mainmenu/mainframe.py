@@ -14,6 +14,7 @@ from libs.mainmenu.mainmenuscreen import *
 from libs.followme.followmemenu import *
 from libs.brutelogin.bruteloginmenu import *
 from libs.aws.awsmenu import *
+from libs.xss.xssmenu import *
 
 class mainframe:
 	def __init__(self, logger):
@@ -50,7 +51,7 @@ class mainframe:
 					 self.screen.addstr(0, 71, "DEBUG ON", curses.color_pair(1))
 				 self.screen.refresh()
 
-				 mystr = self.screen.getstr(21,4).decode(encoding="utf-8")
+				 mystr = self.screen.getstr(22,4).decode(encoding="utf-8")
 				 mystr_elements = mystr.split()
 				 firstelement='notset'
 				 if len(mystr_elements) >= 1:
@@ -58,11 +59,11 @@ class mainframe:
 
 				 if firstelement == 'd':
 					 self.debug = True
-					 self.current_url = "http://localhost:8000"
+					 self.current_url = "https://xss-game.appspot.com/level1/frame?query=d&bah=heh&jim=ab"
 					 #self.proxy_host = '10.0.0.29'
 					 #self.proxy_port = 8080
 					 self.open_url(self.current_url)
-					 firstelement="quickdetect"
+					 firstelement="xss"
 
 				 if firstelement == 'goto':
 					 if len(mystr_elements) >= 2:
@@ -115,6 +116,9 @@ class mainframe:
 				 
 				 if firstelement == 'html':
 					 HTMLScreen(self.screen, self.driver, self.curses_util, self.jsinjector).show()
+				 
+				 if firstelement == 'xss':
+					 XSSScreen(self.screen, self.driver, self.curses_util, self.logger).show()				 					 
 			 except curses.error:
 				 pass
 			 except:
