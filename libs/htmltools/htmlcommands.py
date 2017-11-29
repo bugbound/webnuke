@@ -1,6 +1,7 @@
 from selenium.common.exceptions import WebDriverException
 from selenium.common.exceptions import ElementNotInteractableException
 from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import ElementNotVisibleException
 import time
 
 class HTMLCommands:
@@ -74,6 +75,12 @@ class HTMLCommands:
 				#print "ElementNotInteractableException"
 				doPageReload = False
 				pass
+			except ElementNotVisibleException:
+				doPageReload = False
+				pass
+			except WebDriverException:
+				doPageReload = False
+				pass
 			except IndexError:
 				# we had too little page elements compared to the first time on page
 				give_or_take = 10
@@ -91,7 +98,7 @@ class HTMLCommands:
 			except:
 				doPageReload = True
 				print "Something unexpected happened!!!"
-				pass
+				raise
 		print ''
 		print 'Found the following pages: '
 		for url in urls_found:

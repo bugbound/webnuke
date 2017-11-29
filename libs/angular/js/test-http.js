@@ -40,8 +40,8 @@ window.wn_testHTTPClasses = function(){
 						catch(err){}						
 						
 						try{
-							api.get();
-							drf.push(service_name+".getAll()");
+							api.getData();
+							drf.push(service_name+".getData()");
 							}
 						catch(err){}						
 					}

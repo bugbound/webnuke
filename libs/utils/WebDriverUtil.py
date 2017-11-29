@@ -34,7 +34,11 @@ class WebDriverUtil:
 		profile.set_preference("network.proxy.ssl_port", proxy_port)
 		profile.update_preferences()
 		
-		newdriver = webdriver.Firefox(firefox_profile=profile)
+		capabilities = webdriver.DesiredCapabilities().FIREFOX
+		capabilities["marionette"] = False
+		newdriver = webdriver.Firefox(firefox_profile=profile, capabilities=capabilities)
+		
+		#newdriver = webdriver.Firefox(firefox_profile=profile)
 		self.wait = ui.WebDriverWait(newdriver, 10) # timeout after 10 seconds
 		return newdriver
 		

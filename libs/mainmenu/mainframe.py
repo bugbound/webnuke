@@ -60,10 +60,10 @@ class mainframe:
 				 if firstelement == 'd':
 					 self.debug = True
 					 self.current_url = "https://xss-game.appspot.com/level1/frame?query=d&bah=heh&jim=ab"
-					 #self.proxy_host = '10.0.0.29'
+					 #self.proxy_host = '192.168.162.33'
 					 #self.proxy_port = 8080
 					 self.open_url(self.current_url)
-					 firstelement="xss"
+					 firstelement="html"
 
 				 if firstelement == 'goto':
 					 if len(mystr_elements) >= 2:
