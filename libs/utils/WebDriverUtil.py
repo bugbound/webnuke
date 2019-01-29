@@ -1,6 +1,7 @@
 from pyvirtualdisplay import Display
 from selenium import webdriver
 import selenium.webdriver.support.ui as ui
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 class WebDriverUtil:
 	def __init__(self):
@@ -34,9 +35,7 @@ class WebDriverUtil:
 		profile.set_preference("network.proxy.ssl_port", proxy_port)
 		profile.update_preferences()
 		
-		capabilities = webdriver.DesiredCapabilities().FIREFOX
-		capabilities["marionette"] = False
-		newdriver = webdriver.Firefox(firefox_profile=profile, capabilities=capabilities)
+		newdriver = webdriver.Firefox(firefox_binary=binary,firefox_profile=profile)
 		
 		#newdriver = webdriver.Firefox(firefox_profile=profile)
 		self.wait = ui.WebDriverWait(newdriver, 10) # timeout after 10 seconds
@@ -53,9 +52,10 @@ class WebDriverUtil:
 		#self.proxy_support = ProxySupport('webnuke-proxy', webnuke_config_proxy_port, webnuke_config_web_api_url)
 		profile = self.getWebDriverProfile()
 		profile.update_preferences()
-		capabilities = webdriver.DesiredCapabilities().FIREFOX
-		capabilities["marionette"] = False
-		newdriver = webdriver.Firefox(firefox_profile=profile, capabilities=capabilities)
+
+		binary = FirefoxBinary('/usr/bin/firefox-esr')
+		newdriver = webdriver.Firefox(firefox_binary=binary,firefox_profile=profile)
+		#newdriver = webdriver.Firefox(firefox_profile=profile)
 		#self.driver = self.getDriverWithProxySupport('localhost', webnuke_config_proxy_port)
 		return newdriver
 		
