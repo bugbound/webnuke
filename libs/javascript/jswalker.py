@@ -2,20 +2,13 @@ from selenium.common.exceptions import WebDriverException
 import sys
 
 
-class JavascriptCommands:
+class JSWalker:
 	def __init__(self, webdriver, jsinjector):
 		self.version = 0.1
 		self.driver = webdriver
 		self.jsinjector = jsinjector
-		
-	def search_for_urls(self):
-		self.jsinjector.execute_javascript(self.driver, 'wn_findStringsWithUrls();')
-		print ''
-		print ''
-		raw_input("Press ENTER to return to menu.")
-
-
-	def walk_functions(self):
+	
+	def start_walk_tree(self):
 		#javascript="jsproberesults=[];for (name in this) {  try{jsproberesults.push( {'name':''+name, 'value': ''+this[name]})}catch(err){var anyerror='ignore'};};return jsproberesults"
 		javascript = """
 window.wn_walk_functions = function(rootnode, pathstring){
@@ -51,9 +44,16 @@ window.wn_walk_functions = function(rootnode, pathstring){
 	return rtndata;
 }
 """
-		self.jsinjector.execute_javascript(self.driver, javascript)
+		# inject walk function
+		self.driver.execute_script(javascript)
+		self.walk_tree('this','this')
+		print ''
+		print ''
+		raw_input("Press ENTER to return to menu.")
 
-		javascript="return wn_walk_functions(this, 'this');"		
+
+	def walk_tree(self, rootnode, fullpath):
+		javascript="return wn_walk_functions(%s, '%s');"%(rootnode, fullpath)		
 		jsresults = self.executeJavascriptAndReturnArray(javascript)
 		#print jsresults
 		for record in jsresults:
@@ -63,29 +63,14 @@ window.wn_walk_functions = function(rootnode, pathstring){
 				confirmed = self.confirm("Do you want to run javascript function '"+fullpath+"'?")
 				if confirmed:
 					print "running function "+fullpath+"();"
+					self.jsinjector.execute_javascript(self.driver, fullpath+"();")
 			if recordtype == 'object':
 				confirmed = self.confirm("Do you want to walk '"+fullpath+"'?")
 				if confirmed:
 					print "walking object "+fullpath+""
-			print "%s [%s]"%(record['fullpath'], record['type'])
-		print ''
-		print ''
-		raw_input("Press ENTER to return to menu.")
-
-
-	def search_for_document_javascript_methods(self):
-		script_to_include = """
-var blacklist = ["__webDriverComplete", "__webDriverArguments", "close","stop","focus","blur","open","alert","confirm","prompt","print","postMessage","captureEvents","releaseEvents","getSelection","getComputedStyle","matchMedia","moveTo","moveBy","resizeTo","resizeBy","scroll","scrollTo","scrollBy","requestAnimationFrame","cancelAnimationFrame","getDefaultComputedStyle","scrollByLines","scrollByPages","sizeToContent","updateCommands","find","dump","setResizable","requestIdleCallback","cancelIdleCallback","btoa","atob","setTimeout","clearTimeout","setInterval","clearInterval","createImageBitmap","fetch","self","name","history","locationbar","menubar","personalbar","scrollbars","statusbar","toolbar","status","closed","frames","length","opener","parent","frameElement","navigator","external","applicationCache","screen","innerWidth","innerHeight","scrollX","pageXOffset","scrollY","pageYOffset","screenX","screenY","outerWidth","outerHeight","performance","mozInnerScreenX","mozInnerScreenY","devicePixelRatio","scrollMaxX","scrollMaxY","fullScreen","mozPaintCount","ondevicemotion","ondeviceorientation","onabsolutedeviceorientation","ondeviceproximity","onuserproximity","ondevicelight","sidebar","crypto","onabort","onblur","onfocus","onauxclick","oncanplay","oncanplaythrough","onchange","onclick","onclose","oncontextmenu","ondblclick","ondrag","ondragend","ondragenter","ondragexit","ondragleave","ondragover","ondragstart","ondrop","ondurationchange","onemptied","onended","oninput","oninvalid","onkeydown","onkeypress","onkeyup","onload","onloadeddata","onloadedmetadata","onloadend","onloadstart","onmousedown","onmouseenter","onmouseleave","onmousemove","onmouseout","onmouseover","onmouseup","onwheel","onpause","onplay","onplaying","onprogress","onratechange","onreset","onresize","onscroll","onseeked","onseeking","onselect","onshow","onstalled","onsubmit","onsuspend","ontimeupdate","onvolumechange","onwaiting","onselectstart","ontoggle","onpointercancel","onpointerdown","onpointerup","onpointermove","onpointerout","onpointerover","onpointerenter","onpointerleave","ongotpointercapture","onlostpointercapture","onmozfullscreenchange","onmozfullscreenerror","onanimationcancel","onanimationend","onanimationiteration","onanimationstart","ontransitioncancel","ontransitionend","ontransitionrun","ontransitionstart","onwebkitanimationend","onwebkitanimationiteration","onwebkitanimationstart","onwebkittransitionend","onerror","speechSynthesis","onafterprint","onbeforeprint","onbeforeunload","onhashchange","onlanguagechange","onmessage","onmessageerror","onoffline","ononline","onpagehide","onpageshow","onpopstate","onstorage","onunload","localStorage","origin","isSecureContext","indexedDB","caches","sessionStorage","document","location","top","addEventListener","removeEventListener","dispatchEvent"];
-
-jsproberesults=[];for (name in this) {  
-if ((blacklist.includes(name) == false) && (name.startsWith('wn_') == false)){jsproberesults.push('"'+name+'"')};}
-var full = jsproberesults.join(','); console.log(full);		
+					self.walk_tree(fullpath, fullpath)
+			#print "%s [%s]"%(record['fullpath'], record['type'])
 		
-		"""
-		self.jsinjector.execute_javascript(self.driver, script_to_include)
-		print ''
-		print ''
-		raw_input("Press ENTER to return to menu.")
 		
 	def run_lone_javascript_functions(self):
 		print "getting global window object"
@@ -134,18 +119,10 @@ var full = jsproberesults.join(','); console.log(full);
 		print ''
 		raw_input("Press ENTER to return to menu.")
 
-	def show_cookies(self):
-		self.jsinjector.execute_javascript(self.driver, 'wn_showCookie()')
-		print ''
-		print ''
-		raw_input("Press ENTER to return to menu.")
-
-
 
 			
 	def executeJavascriptAndReturnArray(self, javascript):
 		try:
-			self.clearAlertBox()
 			return self.driver.execute_script(javascript)
 		except WebDriverException as e:
 			print "Selenium Exception: Message: "+str(e)
@@ -153,14 +130,6 @@ var full = jsproberesults.join(','); console.log(full);
 			print 'probe_window FAILED'
 			print "Unexpected error:", sys.exc_info()[0]
 			raise
-
-	def clearAlertBox(self):
-		try:
-			alert = self.driver.switch_to_alert()
-			alert.accept()
-		except:
-			pass
-		
 	
 	def confirm(self, message):
 		bah = raw_input(message+" (Y/n):")

@@ -3,6 +3,8 @@ from selenium.common.exceptions import WebDriverException
 
 from libs.javascript.javascriptscript import *
 from libs.javascript.javascriptcommands import *
+from libs.javascript.jswalker import *
+
 
 class JavascriptScreen:
 	def __init__(self, screen, webdriver, curses_util, jsinjector):
@@ -12,6 +14,7 @@ class JavascriptScreen:
 		self.curses_util = curses_util
 		self.jsinjector = jsinjector
 		self.commands = JavascriptCommands(self.driver, self.jsinjector)
+		self.jswalker = JSWalker(self.driver, self.jsinjector)
 		
 		
 	def show(self):
@@ -53,7 +56,8 @@ class JavascriptScreen:
 
 			if c == ord('5'):
 				self.curses_util.close_screen()
-				self.commands.walk_functions()
+				self.jswalker.start_walk_tree()
+				#self.commands.walk_functions()
 					
 		return
 		
