@@ -24,6 +24,7 @@ class JavascriptScreen:
 			self.screen.addstr(5, 5, "2) Show Javascript functions of Document")
 			self.screen.addstr(6, 5, "3) Run all js functions without args")
 			self.screen.addstr(7, 5, "4) Show Cookies accessable by Javascript")
+			self.screen.addstr(8, 5, "5) Walk Javascript Functions")
 
 
 			
@@ -50,6 +51,9 @@ class JavascriptScreen:
 				self.curses_util.close_screen()
 				self.commands.show_cookies()
 
-								
+			if c == ord('5'):
+				self.curses_util.close_screen()
+				self.commands.walk_functions()
+					
 		return
 		

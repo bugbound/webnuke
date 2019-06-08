@@ -9,13 +9,29 @@ class JavascriptCommands:
 		self.jsinjector = jsinjector
 		
 	def search_for_urls(self):
-		self.jsinjector.execute_javascript(self.driver, 'wn_findStringsWithUrls()')
+		self.jsinjector.execute_javascript(self.driver, 'wn_findStringsWithUrls();')
 		print ''
 		print ''
 		raw_input("Press ENTER to return to menu.")
 
+
+	def walk_functions(self):
+		self.jsinjector.execute_javascript(self.driver, 'wn_walk_functions(this, "this")')
+		print ''
+		print ''
+		raw_input("Press ENTER to return to menu.")
+
+
 	def search_for_document_javascript_methods(self):
-		self.jsinjector.execute_javascript(self.driver, 'wn_findMethodsOfThis()')
+		script_to_include = """
+var blacklist = ["__webDriverComplete", "__webDriverArguments", "close","stop","focus","blur","open","alert","confirm","prompt","print","postMessage","captureEvents","releaseEvents","getSelection","getComputedStyle","matchMedia","moveTo","moveBy","resizeTo","resizeBy","scroll","scrollTo","scrollBy","requestAnimationFrame","cancelAnimationFrame","getDefaultComputedStyle","scrollByLines","scrollByPages","sizeToContent","updateCommands","find","dump","setResizable","requestIdleCallback","cancelIdleCallback","btoa","atob","setTimeout","clearTimeout","setInterval","clearInterval","createImageBitmap","fetch","self","name","history","locationbar","menubar","personalbar","scrollbars","statusbar","toolbar","status","closed","frames","length","opener","parent","frameElement","navigator","external","applicationCache","screen","innerWidth","innerHeight","scrollX","pageXOffset","scrollY","pageYOffset","screenX","screenY","outerWidth","outerHeight","performance","mozInnerScreenX","mozInnerScreenY","devicePixelRatio","scrollMaxX","scrollMaxY","fullScreen","mozPaintCount","ondevicemotion","ondeviceorientation","onabsolutedeviceorientation","ondeviceproximity","onuserproximity","ondevicelight","sidebar","crypto","onabort","onblur","onfocus","onauxclick","oncanplay","oncanplaythrough","onchange","onclick","onclose","oncontextmenu","ondblclick","ondrag","ondragend","ondragenter","ondragexit","ondragleave","ondragover","ondragstart","ondrop","ondurationchange","onemptied","onended","oninput","oninvalid","onkeydown","onkeypress","onkeyup","onload","onloadeddata","onloadedmetadata","onloadend","onloadstart","onmousedown","onmouseenter","onmouseleave","onmousemove","onmouseout","onmouseover","onmouseup","onwheel","onpause","onplay","onplaying","onprogress","onratechange","onreset","onresize","onscroll","onseeked","onseeking","onselect","onshow","onstalled","onsubmit","onsuspend","ontimeupdate","onvolumechange","onwaiting","onselectstart","ontoggle","onpointercancel","onpointerdown","onpointerup","onpointermove","onpointerout","onpointerover","onpointerenter","onpointerleave","ongotpointercapture","onlostpointercapture","onmozfullscreenchange","onmozfullscreenerror","onanimationcancel","onanimationend","onanimationiteration","onanimationstart","ontransitioncancel","ontransitionend","ontransitionrun","ontransitionstart","onwebkitanimationend","onwebkitanimationiteration","onwebkitanimationstart","onwebkittransitionend","onerror","speechSynthesis","onafterprint","onbeforeprint","onbeforeunload","onhashchange","onlanguagechange","onmessage","onmessageerror","onoffline","ononline","onpagehide","onpageshow","onpopstate","onstorage","onunload","localStorage","origin","isSecureContext","indexedDB","caches","sessionStorage","document","location","top","addEventListener","removeEventListener","dispatchEvent"];
+
+jsproberesults=[];for (name in this) {  
+if ((blacklist.includes(name) == false) && (name.startsWith('wn_') == false)){jsproberesults.push('"'+name+'"')};}
+var full = jsproberesults.join(','); console.log(full);		
+		
+		"""
+		self.jsinjector.execute_javascript(self.driver, script_to_include)
 		print ''
 		print ''
 		raw_input("Press ENTER to return to menu.")
