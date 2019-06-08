@@ -16,7 +16,10 @@ class JavascriptCommands:
 
 
 	def walk_functions(self):
-		self.jsinjector.execute_javascript(self.driver, 'wn_walk_functions(this, "this")')
+		javascript = 'return wn_walk_functions(this, "this");'
+		jsresults = self.executeJavascriptAndReturnArray(javascript)
+		for line in jsresults:
+			print "+%s"%(line)
 		print ''
 		print ''
 		raw_input("Press ENTER to return to menu.")
