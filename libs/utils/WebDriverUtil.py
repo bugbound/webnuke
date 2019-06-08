@@ -35,6 +35,7 @@ class WebDriverUtil:
 		profile.set_preference("network.proxy.ssl_port", proxy_port)
 		profile.update_preferences()
 		
+		binary = FirefoxBinary('/usr/bin/firefox-esr')
 		newdriver = webdriver.Firefox(firefox_binary=binary,firefox_profile=profile)
 		
 		#newdriver = webdriver.Firefox(firefox_profile=profile)
