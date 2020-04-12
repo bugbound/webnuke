@@ -27,7 +27,12 @@ class HTMLCommands:
 		print ''
 		print ''
 		raw_input("Press ENTER to return to menu.")
-
+	
+	def remove_hidden_from_classnames(self):
+		self.jsinjector.execute_javascript(self.driver, 'wn_remove_hidden_from_classnames()')
+		print ''
+		print ''
+		raw_input("Press ENTER to return to menu.")
 
 		
 	def click_everything(self):

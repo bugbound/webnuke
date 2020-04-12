@@ -26,6 +26,7 @@ class HTMLScreen:
 			self.screen.addstr(6, 5, "3) Turn css visibility on for all HTML elements") 
 			self.screen.addstr(7, 5, "4) Click every element on the page") 
 			self.screen.addstr(8, 5, "5) Type 'test' into every text box")
+			self.screen.addstr(10, 5,"6) Removes hidden from class names")
 
 
 			
@@ -55,7 +56,9 @@ class HTMLScreen:
 			if c == ord('5'):
 				self.curses_util.close_screen()
 				self.commands.type_into_everything()
-
+			if c == ord('6'):
+				self.curses_util.close_screen()
+				self.commands.remove_hidden_from_classnames()
 								
 		return
 		

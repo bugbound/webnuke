@@ -60,3 +60,16 @@ window.wn_showAllHTMLElements = function(){
 		 element.style.visibility = 'visible';
 	}
 };
+
+
+window.wn_remove_hidden_from_classnames = function(){
+	console.log('webnuke: Removing hidden from classnames');
+	console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=');
+
+	var all = document.getElementsByTagName('*');
+
+	for (var i=0, max=all.length; i < max; i++) {
+		 var element = all[i];
+		 element.classList.remove("hidden");
+	}
+};
