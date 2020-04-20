@@ -33,7 +33,11 @@ class HTMLCommands:
 		print ''
 		print ''
 		raw_input("Press ENTER to return to menu.")
-
+	def show_modals(self):
+		self.jsinjector.execute_javascript(self.driver, 'wn_show_modals()')
+		print ''
+		print ''
+		raw_input("Press ENTER to return to menu.")
 		
 	def click_everything(self):
 		start_url = self.driver.current_url

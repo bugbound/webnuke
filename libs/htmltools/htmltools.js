@@ -63,13 +63,29 @@ window.wn_showAllHTMLElements = function(){
 
 
 window.wn_remove_hidden_from_classnames = function(){
-	console.log('webnuke: Removing hidden from classnames');
-	console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=');
+	console.log('webnuke: Removing hidden & hide from classnames');
+	console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-');
 
 	var all = document.getElementsByTagName('*');
 
 	for (var i=0, max=all.length; i < max; i++) {
 		 var element = all[i];
 		 element.classList.remove("hidden");
+         element.classList.remove("hide");
+	}
+};
+
+window.wn_show_modals = function(){
+	console.log('webnuke: Showing modals');
+	console.log('-=-=-=-=-=-=-=-=-=-=-=-');
+
+	var all = document.getElementsByClassName('modal fade')
+
+	for (var i=0, max=all.length; i < max; i++) {
+		 var element = all[i];
+         if(element.classList.contains('show') == false)
+            {
+                element.classList.add("show");
+            }
 	}
 };

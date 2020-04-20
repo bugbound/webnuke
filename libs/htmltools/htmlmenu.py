@@ -26,7 +26,8 @@ class HTMLScreen:
 			self.screen.addstr(6, 5, "3) Turn css visibility on for all HTML elements") 
 			self.screen.addstr(7, 5, "4) Click every element on the page") 
 			self.screen.addstr(8, 5, "5) Type 'test' into every text box")
-			self.screen.addstr(10, 5,"6) Removes hidden from class names")
+			self.screen.addstr(9, 5, "6) Removes hidden & hide from classnames")
+			self.screen.addstr(10, 5,"7) Show all modals  (modal fade -> modal fade show)")
 
 
 			
@@ -59,6 +60,9 @@ class HTMLScreen:
 			if c == ord('6'):
 				self.curses_util.close_screen()
 				self.commands.remove_hidden_from_classnames()
+			if c == ord('7'):
+				self.curses_util.close_screen()
+				self.commands.show_modals()
 								
 		return
 		
